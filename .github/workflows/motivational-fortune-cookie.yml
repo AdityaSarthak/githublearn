@@ -22,7 +22,7 @@ jobs:
             "Your time is limited, don't waste it living someone else's life. - Steve Jobs"
             "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt"
           )
-          echo "::set-output name=quote::${quotes[RANDOM % ${#quotes[@]}]}"
+           echo "QUOTE=${quotes[$(( RANDOM % ${#quotes[@]} ))]}" >> $GITHUB_ENV
 
       - name: Display Motivational Quote
-        run: echo "Motivational Quote:${{ steps.get_quote.outputs.quote }}"
+        run: echo "Motivational Quote:${{ env.QUOTE }}"
