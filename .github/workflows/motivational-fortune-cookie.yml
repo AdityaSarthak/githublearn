@@ -3,6 +3,9 @@ name: Motivational Fortune Cookie
 on:
   issues:
     types: [opened]
+  push:
+      branches:
+      -  main
 
 jobs:
   add-fortune-cookie:
