@@ -1,22 +1,26 @@
-name: Motivational Fortune Cookie
+name: Patience Quotes/Memes for PRs
 
 on:
-  issues:
+  pull_request:
     types: [opened]
-  push:
-      branches:
-      -  main
 
 jobs:
-  add-fortune-cookie:
+  add-patience-quote:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Add Motivational Fortune Cookie
+      - name: Add Patience Quote
         run: |
-          echo "::set-output name=message::$(curl -s https://api.quotable.io/random | jq -r '.content')"
-          echo "The Motivational Fortune Cookie says: $message" >> $GITHUB_EVENT_PATH
-          echo "::set-output name=message::$message"
+          quotes=(
+            "Patience is not the ability to wait, but the ability to keep a good attitude while waiting."
+            "Patience is bitter, but its fruit is sweet."
+            "The two most powerful warriors are patience and time."
+            "Patience is the companion of wisdom."
+            "Patience, persistence, and perspiration make an unbeatable combination for success."
+          )
+          selected_quote=${quotes[$RANDOM % ${#quotes[@]}]}
+          echo "##[set-output name=quote]${selected_quote}"
+          echo "Patience Quote: ${selected_quote}" >> $GITHUB_EVENT_PATH
