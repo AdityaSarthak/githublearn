@@ -1,0 +1,19 @@
+name: Motivational Fortune Cookie
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add-fortune-cookie:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Add Motivational Fortune Cookie
+        run: |
+          echo "::set-output name=message::$(curl -s https://api.quotable.io/random | jq -r '.content')"
+          echo "The Motivational Fortune Cookie says: $message" >> $GITHUB_EVENT_PATH
+          echo "::set-output name=message::$message"
